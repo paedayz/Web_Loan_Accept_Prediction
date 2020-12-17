@@ -2,6 +2,7 @@ import "./App.css";
 import axios from 'axios'
 import React , { useState } from 'react'
 import styled from 'styled-components'
+import ClipLoader from "react-spinners/ClipLoader";
 
 let axiosDefaults = require("axios/lib/defaults");
 axiosDefaults.baseURL = "http://127.0.0.1:5000/";
@@ -28,6 +29,13 @@ function App() {
   const [Loan_Status, setLoan_Status] = useState(null)
   const [errors, setErrors] = useState(null)
   const [sendStatus, setSendStatus] = useState(false)
+  const [loading, setLoading] = useState(true)
+
+  if(loading === true && sendStatus === true) {
+    setTimeout(() => {
+      setLoading(false)
+    }, 2000)
+  }
 
   let data = {
     Gender : Gender,
@@ -70,7 +78,25 @@ function App() {
         console.log('no not get')
       })
     }
-    
+  }
+
+  const handleBack = () => {
+    setSendStatus(false)
+    setGender(null)
+    setMarried(null)
+    setDependents(null)
+    setEducation(null)
+    setSelf_Employed(null)
+    setApplicantIncome(null)
+    setCoapplicantIncome(null)
+    setLoanAmount(null)
+    setLoan_Amount_Term(null)
+    setCredit_History(null)
+    setProperty_Area(null)
+    setLoan_Status(null)
+    setErrors(null)
+    setLoading(true)
+    setSendStatus(false)
   }
 
   // STATE COMPONENT
@@ -215,12 +241,31 @@ function App() {
     </div>
   )
 
-  let Result = (<div>{Loan_Status}</div>)
+  let Result = (
+    <div>
+      {loading===false ? 
+      <div>
+        <div>{Loan_Status === 1 ? (<div>Congratulations! {fname} {lname} <br/> You Can Loan</div>) : (<div>Sorry {fname} {lname} <br/>You Can't Loan</div>)}</div>
+        <button onClick={handleBack}>Go Back</button>
+      </div>
+      :
+        <div>
+          <ClipLoader
+            size={150}
+            color={"#123abc"}
+            loading={true}
+          />
+        </div>
+      }
+    </div>
+      
+  
+  )
 
   return (
     <div className="container text-center">
       <p>Loan accept prediction</p>
-      {sendStatus==false ? Form : Result}
+      {sendStatus===false ? Form : Result}
     </div>
   );
 }
