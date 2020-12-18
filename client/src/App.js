@@ -3,6 +3,9 @@ import axios from 'axios'
 import React , { useState } from 'react'
 import styled from 'styled-components'
 import ClipLoader from "react-spinners/ClipLoader";
+import Confetti from 'react-confetti'
+import RingLoader from "react-spinners/RingLoader";
+
 
 let axiosDefaults = require("axios/lib/defaults");
 axiosDefaults.baseURL = "http://127.0.0.1:5000/";
@@ -10,6 +13,15 @@ axiosDefaults.baseURL = "http://127.0.0.1:5000/";
 // styled component
 const ErrorsText = styled.div`
   color : red;
+  position: absolute;
+  top: 82%;
+  left: 45%;
+  font-weight : bold;
+`
+
+const Loader = styled.div`
+  position: absolute;
+  left: 43%;
 `
 
 function App() {
@@ -28,13 +40,13 @@ function App() {
   const [Property_Area, setProperty_Area] = useState(null)
   const [Loan_Status, setLoan_Status] = useState(null)
   const [errors, setErrors] = useState(null)
-  const [sendStatus, setSendStatus] = useState(false)
+  const [sendStatus, setSendStatus] = useState(true)
   const [loading, setLoading] = useState(true)
 
   if(loading === true && sendStatus === true) {
     setTimeout(() => {
       setLoading(false)
-    }, 2000)
+    }, 3000)
   }
 
   let data = {
@@ -99,163 +111,206 @@ function App() {
     setSendStatus(false)
   }
 
+  
+  
+  
+
+
   // STATE COMPONENT
   let Form = (
-    <div>
-      <form>
+    
+    <div class="black">
+      <div class="container">
+      
+      <div class="card">
+        
+        <form class="row">
+          <div class="column-5">
+          </div>
+          <div class="column-1">
+              <label class="s">First_Name</label><br/>
+              <label class="s">Gender</label><br/>
+              <label class="s">Dependents</label><br/>
+              <label class="s">Self_Employed</label><br/>
+              <label class="s">Coapplicant_Income</label><br/>
+              <label class="s">Loan_Amount_Term</label><br/>
+              <label class="s">Credit_History</label><br/>
+          </div>
+          <div class="column-2">
+              <label>:</label>
+              <input
+                type="text"
+                id="fname"
+                value={fname}
+                onChange={e => setFName(e.target.value)}
+                placeholder="First name.."
+              /><br/>
+            <div class = "gg">
+            <label>:</label>
+              <select 
+                
+                id="Gender"
+                value={Gender}
+                onChange={e => setGender(e.target.value)}
+              >
+                <option value={null}>none</option>
+                <option value={1}>Male</option>
+                <option value={0}>Female</option>
+              </select><br/>
+            </div>
+            <label>:</label>
+            <input
+              type="number"
+              id="Dependents"
+              value={Dependents}
+              onChange={e => setDependents(e.target.value)}
+              placeholder="Dependents"
+            /><br/>
+            <div class = "hh">
+              <label>:</label>
+              <select
+                id="Self_Employed"
+                value={Self_Employed}
+                onChange={e => setSelf_Employed(e.target.value)}
+              >
+                <option value={null}>none</option>
+                <option value={1}>Yes</option>
+                <option value={0}>No</option>
+              </select><br/>
+            </div>
+            <label>:</label>
+            <input
+              type="number"
+              id="CoapplicantIncome"
+              value={CoapplicantIncome}
+              onChange={e => setCoapplicantIncome(e.target.value)}
+              placeholder="CoapplicantIncome"
+            /><br/>
+            <label>:</label>
+            <input
+              type="number"
+              id="Loan_Amount_Term"
+              value={Loan_Amount_Term}
+              onChange={e => setLoan_Amount_Term(e.target.value)}
+              placeholder="Loan_Amount_Term"
+            /><br/>
+            <label>:</label>
+            <input
+              type="number"
+              id="Credit_History"
+              value={Credit_History}
+              onChange={e => setCredit_History(e.target.value)}
+              placeholder="Credit_History"
+            /><br/>
+          </div>
+          <div class="column-3">
+              <label class="m">Last_Name</label><br/>
+              <label class="m">Married</label><br/>
+              <label class="m">Education</label><br/>
+              <label class="m">Applicant_Income</label><br/>
+              <label class="m">Loan_Amount</label><br/>
+              <label class="m">Property_Area</label>
+          </div>
+          <div class="column-4">
+              <label>:</label>
+              <input
+                type="text"
+                id="lname"
+                value={lname}
+                onChange={e => setLName(e.target.value)}
+                placeholder="Last name.."
+              /><br/>
+            <div class = "kk">
+              <label>:</label>
+              <select
+                id="Married"
+                value={Married}
+                onChange={e => setMarried(e.target.value)}
+              >
+                <option value={null}>none</option>
+                <option value={1}>Yes</option>
+                <option value={0}>No</option>
+              </select><br/>
+            </div>
+            <div class = "cc">
+              <label>:</label>
+              <select
+                id="Education"
+                value={Education}
+                onChange={e => setEducation(e.target.value)}
+              >
+                <option value={null}>none</option>
+                <option value={1}>Graduate</option>
+                <option value={0}>Not Graduate</option>
+              </select><br/>
+            </div>
+            <label>:</label>
+            <input
+              type="number"
+              id="ApplicantIncome"
+              value={ApplicantIncome}
+              onChange={e => setApplicantIncome(e.target.value)}
+              placeholder="ApplicantIncome"
+            /><br/>
+            <label>:</label>
+            <input
+              type="number"
+              id="LoanAmount"
+              value={LoanAmount}
+              onChange={e => setLoanAmount(e.target.value)}
+              placeholder="LoanAmount"
+            /><br/>
+            <div class = "ee">
+              <label>:</label>
+              <select
+                id="Property_Area"
+                value={Property_Area}
+                onChange={e => setProperty_Area(e.target.value)}
+              >
+                <option value={null}>none</option>
+                <option value={0}>Rural</option>
+                <option value={2}>Urban</option>
+                <option value={1}>Semiurban</option>
+              </select><br/>
+            </div>
 
-        <label>First Name</label>
-        <input
-          type="text"
-          id="fname"
-          value={fname}
-          onChange={e => setFName(e.target.value)}
-          placeholder="First name.."
-        /><br/>
+          </div>
+          
+            
+        </form>
         
-        <label>Last Name</label>
-        <input
-          type="text"
-          id="lname"
-          value={lname}
-          onChange={e => setLName(e.target.value)}
-          placeholder="Last name.."
-        /><br/>
-        
-        <label>Gender</label>
-        <select 
-          id="Gender"
-          value={Gender}
-          onChange={e => setGender(e.target.value)}
-        >
-          <option value={null}>none</option>
-          <option value={1}>Male</option>
-          <option value={0}>Female</option>
-        </select><br/>
-        
-        <label>Married</label>
-        <select
-          id="Married"
-          value={Married}
-          onChange={e => setMarried(e.target.value)}
-        >
-          <option value={null}>none</option>
-          <option value={1}>Yes</option>
-          <option value={0}>No</option>
-        </select><br/>
-        
-        <label>Dependents</label>
-        <input
-          type="number"
-          id="Dependents"
-          value={Dependents}
-          onChange={e => setDependents(e.target.value)}
-          placeholder="Dependents"
-        /><br/>
-        
-        <label>Education</label>
-        <select
-          id="Education"
-          value={Education}
-          onChange={e => setEducation(e.target.value)}
-        >
-          <option value={null}>none</option>
-          <option value={1}>Graduate</option>
-          <option value={0}>Not Graduate</option>
-        </select><br/>
-        
-        <label>Self_Employed</label>
-        <select
-          id="Self_Employed"
-          value={Self_Employed}
-          onChange={e => setSelf_Employed(e.target.value)}
-        >
-          <option value={null}>none</option>
-          <option value={1}>Yes</option>
-          <option value={0}>No</option>
-        </select><br/>
-        
-        <label>ApplicantIncome</label>
-        <input
-          type="number"
-          id="ApplicantIncome"
-          value={ApplicantIncome}
-          onChange={e => setApplicantIncome(e.target.value)}
-          placeholder="ApplicantIncome"
-        /><br/>
-        
-        <label>CoapplicantIncome</label>
-        <input
-          type="number"
-          id="CoapplicantIncome"
-          value={CoapplicantIncome}
-          onChange={e => setCoapplicantIncome(e.target.value)}
-          placeholder="CoapplicantIncome"
-        /><br/>
-        
-        <label>LoanAmount</label>
-        <input
-          type="number"
-          id="LoanAmount"
-          value={LoanAmount}
-          onChange={e => setLoanAmount(e.target.value)}
-          placeholder="LoanAmount"
-        /><br/>
-        
-        <label>Loan_Amount_Term</label>
-        <input
-          type="number"
-          id="Loan_Amount_Term"
-          value={Loan_Amount_Term}
-          onChange={e => setLoan_Amount_Term(e.target.value)}
-          placeholder="Loan_Amount_Term"
-        /><br/>
-        
-        <label>Credit_History</label>
-        <input
-          type="number"
-          id="Credit_History"
-          value={Credit_History}
-          onChange={e => setCredit_History(e.target.value)}
-          placeholder="Credit_History"
-        /><br/>
-        
-        <label>Property_Area</label>
-        <select
-          id="Property_Area"
-          value={Property_Area}
-          onChange={e => setProperty_Area(e.target.value)}
-        >
-          <option value={null}>none</option>
-          <option value={0}>Rural</option>
-          <option value={2}>Urban</option>
-          <option value={1}>Semiurban</option>
-        </select><br/>
+      </div>
+      </div>
+      <div><br/><br/><br/></div>
+        <div >
+            <input id="b1" onClick={handleSubmit} type="submit" value="Submit" />
 
-        <input onClick={handleSubmit} type="submit" value="Submit" />
-
-        {errors && 
-          <ErrorsText>{errors}</ErrorsText>
-        }
-      </form>
+            {errors && 
+              <ErrorsText>{errors}</ErrorsText>
+            }
+          </div>
     </div>
   )
+  
 
   let Result = (
     <div>
       {loading===false ? 
       <div>
-        <div>{Loan_Status === 1 ? (<div>Congratulations! {fname} {lname} <br/> You Can Loan</div>) : (<div>Sorry {fname} {lname} <br/>You Can't Loan</div>)}</div>
-        <button onClick={handleBack}>Go Back</button>
+        <div id="d8">{Loan_Status === 1 ? 
+          (<div>Congratulations! {fname} {lname} <br/> You Can Loan <Confetti width="2000%" height="600%"/></div>) : 
+          (<div>Sorry {fname} {lname} <br/>You Can't Loan</div>)}
+        </div>
+        <button id="b2" onClick={handleBack}>Go Back</button>
       </div>
       :
-        <div>
-          <ClipLoader
-            size={150}
-            color={"#123abc"}
+        <Loader>
+          <RingLoader
+            size={200}
+            color={"#90EE90"}
             loading={true}
           />
-        </div>
+        </Loader>
       }
     </div>
       
@@ -263,7 +318,9 @@ function App() {
   )
 
   return (
-    <div className="container text-center">
+    
+    
+    <div className="container text-center" class="loading_wave">
       <p>Loan accept prediction</p>
       {sendStatus===false ? Form : Result}
     </div>
